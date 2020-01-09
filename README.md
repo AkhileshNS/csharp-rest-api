@@ -71,11 +71,15 @@
 - **Step 1**: Since Heroku generally sets its own port and host, we need to change the program to get the port and host from environment variables. So in _Program.cs_ inside Main() function, add and change the following:-
 
   ```c#
-  // ...
-  String PORT = Environment.GetEnvironmentVariable("PORT");
-  String HOST = Environment.GetEnvironmentVariable("HOST");
-  using (var host = new NancyHost(hostConfigs, new Uri("http://" + HOST + ":" + PORT)))
-  // ...
+  var PORT = Environment.GetEnvironmentVariable("PORT") ?? "5000"; // ADD THIS
+  using (var host = new NancyHost(new Uri("http://localhost:" + PORT))) // CHANGE THIS
+  {
+    host.Start();
+    Console.WriteLine("NancyFX Stand alone test application.");
+    Console.WriteLine("Enter 'q' to exit the application");
+    while (Console.ReadLine() != "q") ; // ADD THIS
+    host.Stop(); // ADD THIS
+  }
   ```
 
 - **Step 2**: Now create a folder _.github/workflows_ and in there create a file _main.yml_ with contents:
