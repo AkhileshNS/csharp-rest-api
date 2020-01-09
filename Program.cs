@@ -26,7 +26,7 @@ namespace CSHARP_REST_API
   {
     public HelloModule()
     {
-      Get("/hello", _ => "world of c#");
+      Get("/hello", _ => "world of csharp");
     }
   }
 }
