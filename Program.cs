@@ -14,6 +14,7 @@ namespace CSHARP_REST_API
 
       String PORT = Environment.GetEnvironmentVariable("PORT");
       String HOST = Environment.GetEnvironmentVariable("HOST");
+      Console.WriteLine("http://" + HOST + ":" + PORT);
       using (var host = new NancyHost(hostConfigs, new Uri("http://" + HOST + ":" + PORT)))
       {
         host.Start();
