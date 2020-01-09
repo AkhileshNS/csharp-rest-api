@@ -68,12 +68,13 @@
 
 # To Deploy REST API via Heroku
 
-- **Step 1**: Since Heroku generally sets its own port, we need to change the program to get port from environment variables like so:-
+- **Step 1**: Since Heroku generally sets its own port and host, we need to change the program to get the port and host from environment variables. So in _Program.cs_ inside Main() function, add and change the following:-
 
   ```c#
   // ...
-  String port = Environment.GetEnvironmentVariable("PORT");
-  using (var host = new NancyHost(hostConfigs, new Uri("http://localhost:" + port)));
+  String PORT = Environment.GetEnvironmentVariable("PORT");
+  String HOST = Environment.GetEnvironmentVariable("HOST");
+  using (var host = new NancyHost(hostConfigs, new Uri("http://" + HOST + ":" + PORT)))
   // ...
   ```
 
