@@ -17,8 +17,9 @@ namespace CSHARP_REST_API
       {
         host.Start();
         Console.WriteLine("NancyFX Stand alone test application.");
-        Console.WriteLine("Press enter to exit the application");
-        Console.ReadLine();
+        Console.WriteLine("Enter 'q' to exit the application");
+        while (Console.ReadLine() != "q") ;
+        host.Stop();
       }
     }
   }
