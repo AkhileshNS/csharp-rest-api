@@ -61,5 +61,35 @@
 
 - **Step 6**: **Step 6**: Don't forget to add a _.gitignore_ file and use git to manage your project. The contents of the _.gitignore_ file are:-
   ```
+  /bin
+  /obj/Debug
   .DS_STORE
   ```
+
+# To Deploy REST API via Heroku
+
+- **Step 1**: Now create a folder _.github/workflows_ and in there create a file _main.yml_ with contents:
+
+  ```yaml
+  name: Deploy
+  on:
+    push:
+      branches:
+        - master
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v1.0.0
+        - uses: akhileshns/heroku-deploy@master
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_email: ${{secrets.HEROKU_EMAIL}}
+            heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+            buildpack: 'https://github.com/heroku/dotnet-buildpack.git'
+  ```
+
+- **Step 2**: Now we can push this to GitHub but before that, make sure you have created a Heroku account and in account settings, copy the api key. Then in the github repo for this project, go to settings and add secrets HEROKU_API_KEY (Your copied apikey), HEROKU EMAIL (The email associated with your heroku account) and HEROKU_APP_NAME (The name of your app and keep in mind it needs to be unique in heroku)
+
+  Now whenever you push to the master branch of your github repo, your app is automatically deployed to heroku
