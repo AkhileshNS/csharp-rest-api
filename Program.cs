@@ -11,10 +11,11 @@ namespace CSHARP_REST_API
       HostConfiguration hostConfigs = new HostConfiguration();
       hostConfigs.UrlReservations.CreateAutomatically = true;
       hostConfigs.RewriteLocalhost = false;
-      using (var host = new NancyHost(hostConfigs, new Uri("http://localhost:5000")))
+
+      String port = Environment.GetEnvironmentVariable("PORT");
+      using (var host = new NancyHost(hostConfigs, new Uri("http://localhost:" + port)))
       {
         host.Start();
-
         Console.WriteLine("NancyFX Stand alone test application.");
         Console.WriteLine("Press enter to exit the application");
         Console.ReadLine();
